@@ -3,23 +3,16 @@
 public class ProjectileController : MonoBehaviour
 {
     private Vector3 directionVector;
-    private float projectileSpeed = 1000f;
+    private float projectileSpeed = 3000f;
     private float hitForse;
     private Vector3 target;
-    private GameObject projectile;        
+    private GameObject projectile;
+    private Rigidbody rb;
 
     void Start()
     {
         hitForse = Resources.Load<Data>("Data").HitForse();
         Shoot();
-    }
-
-    void Update()
-    {
-        if (Vector3.Distance(transform.position, target) <= .2f)
-        {
-            Destroy(gameObject);
-        }
     }
 
     void Shoot()
@@ -29,7 +22,7 @@ public class ProjectileController : MonoBehaviour
         {
             directionVector = directionVector.normalized;
         }
-        Rigidbody rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
         rb.AddForce(directionVector * projectileSpeed);
     }
 
@@ -37,8 +30,19 @@ public class ProjectileController : MonoBehaviour
     {
         if (other.gameObject.tag == "Enemy")
         {
+            other.gameObject.GetComponent<Animator>().enabled = false;
             other.gameObject.GetComponent<EnemyController>().EnableRagdoll();
-            other.transform.Find("Dummy").GetComponent<Rigidbody>().AddForce(-transform.forward * hitForse);            
+            foreach (Transform transform in other.gameObject.GetComponentsInChildren<Transform>())
+            {
+                if (transform.GetComponent<Rigidbody>() != null)
+                {
+                    transform.GetComponent<Rigidbody>().AddRelativeForce(gameObject.transform.forward * 2000f);
+                }
+            }
+        }
+        if (other.gameObject.name != "Player")
+        {
+            Destroy(gameObject);
         }
     }
 

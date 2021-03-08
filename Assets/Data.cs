@@ -28,13 +28,13 @@ public class Data : ScriptableObject
         switch (projectileForce)
         {
             case ProjectileForce.low:
-                return 10000f;
+                return 2000f;
             case ProjectileForce.medium:
-                return 30000f;
+                return 5000f;
             case ProjectileForce.high:
-                return 70000f;
-            default:
                 return 10000f;
+            default:
+                return 2000f;
         }
     }
 }

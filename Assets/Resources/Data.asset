@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3db4826c19d997b45af0fc109c61e2f1, type: 3}
   m_Name: Data
   m_EditorClassIdentifier: 
-  projectileForce: 2
+  projectileForce: 1
   playerMoveSpeed: 10
   playerFirerate: 0.1
