@@ -15,6 +15,14 @@ public class ProjectileController : MonoBehaviour
         Shoot();
     }
 
+    private void Update()
+    {
+        if (transform.position.y <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     void Shoot()
     {
         directionVector = target - projectile.transform.position;
